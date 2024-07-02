@@ -6,7 +6,7 @@ import { ThemeContext } from '@/context/theme-context';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
-const ThemeToggleButton = (): JSX.Element => {
+const ButtonThemeToggle = (): JSX.Element => {
   const { toggleTheme, mode } = useContext(ThemeContext);
   const IconComponent = mode === 'dark' ? LightModeIcon : DarkModeIcon;
 
@@ -22,4 +22,4 @@ const ThemeToggleButton = (): JSX.Element => {
   );
 };
 
-export default ThemeToggleButton;
+export default ButtonThemeToggle;
