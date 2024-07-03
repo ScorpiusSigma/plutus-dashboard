@@ -1,5 +1,4 @@
 'use client';
-
 import { useContext } from 'react';
 import { IconButton } from '@mui/material';
 import { ThemeContext } from '@/context/theme-context';
@@ -15,9 +14,22 @@ const ButtonThemeToggle = (): JSX.Element => {
       onClick={toggleTheme}
       color="primary"
       aria-label="toggle theme"
-      className={`hover:${mode === 'dark' ? 'bg-black' : 'bg-white'} hover:animate-pulse`}
+      sx={{
+        '&:hover': {
+          backgroundColor: mode === 'dark' ? 'black' : 'white',
+          animation: 'pulse 2s infinite',
+        },
+        '& .MuiSvgIcon-root': {
+          color: mode === 'dark' ? 'white' : 'black',
+        },
+        '@keyframes pulse': {
+          '0%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.05)' },
+          '100%': { transform: 'scale(1)' },
+        },
+      }}
     >
-      <IconComponent className={mode === 'dark' ? 'text-white' : 'text-black'} />
+      <IconComponent />
     </IconButton>
   );
 };

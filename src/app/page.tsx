@@ -6,11 +6,11 @@ const Home = (): JSX.Element => {
   const router = useRouter();
 
   const handleRoute = (): void => {
-    router.push('/instrument-details');
+    router.push('/overview');
   };
 
   return (
-    <Box className="flex flex-row justify-center content-center">
+    <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
       <Button onClick={handleRoute}>Click me</Button>
     </Box>
   );
