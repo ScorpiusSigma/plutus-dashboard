@@ -7,23 +7,21 @@ interface IButtonActionProps {
 }
 
 const ButtonAction: FC<IButtonActionProps> = ({ children }: IButtonActionProps): JSX.Element => {
-  const theme = useTheme();
   const hoverBgColor = darken('#5b3fa0', 0.2);
 
+  const styles = {
+    bgcolor: '#5b3fa0',
+    color: 'white',
+    textTransform: 'none',
+    height: '30px',
+    borderRadius: 0,
+    '&:hover': {
+      bgcolor: hoverBgColor,
+    },
+  };
+
   return (
-    <Button
-      variant="contained"
-      sx={{
-        bgcolor: '#5b3fa0',
-        color: 'white',
-        textTransform: 'none',
-        height: '30px',
-        borderRadius: 0,
-        '&:hover': {
-          bgcolor: hoverBgColor,
-        },
-      }}
-    >
+    <Button variant="contained" sx={styles}>
       {children}
     </Button>
   );

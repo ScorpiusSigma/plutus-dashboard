@@ -9,18 +9,14 @@ interface ILayoutPaperProps {
 const LayoutPaper: FC<ILayoutPaperProps> = ({ children }: ILayoutPaperProps): JSX.Element => {
   const theme: any = useTheme();
 
-  return (
-    <Paper
-      sx={{
-        position: 'static',
-        height: 'calc(100vh - 72px)',
-        mt: '72px',
-        bgcolor: `${theme.palette.mode === 'dark' ? 'black' : 'white'}`,
-      }}
-    >
-      {children}
-    </Paper>
-  );
+  const styles = {
+    position: 'static',
+    height: 'calc(100vh - 72px)',
+    mt: '72px',
+    bgcolor: `${theme.palette.mode === 'dark' ? 'black' : 'white'}`,
+  };
+
+  return <Paper sx={styles}>{children}</Paper>;
 };
 
 export default LayoutPaper;
