@@ -1,12 +1,12 @@
 import { useTheme } from '@emotion/react';
 import { Paper } from '@mui/material';
-import { ReactNode, useEffect } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 
 interface ILayoutPaperProps {
   children: ReactNode;
 }
 
-const LayoutPaper = ({ children }: ILayoutPaperProps): JSX.Element => {
+const LayoutPaper: FC<ILayoutPaperProps> = ({ children }: ILayoutPaperProps): JSX.Element => {
   const theme: any = useTheme();
 
   return (

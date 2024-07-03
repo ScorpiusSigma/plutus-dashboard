@@ -1,4 +1,5 @@
 'use client';
+import { FC } from 'react';
 import { AppBar, Box, Button, Divider, Grid, useTheme } from '@mui/material';
 import ButtonThemeToggle from '../buttons/button-theme-toggle';
 import { useRouter } from 'next/navigation';
@@ -7,7 +8,7 @@ interface IHeaderBarProps {
   pageSelected: string;
 }
 
-const HeaderBar: React.FC<IHeaderBarProps> = ({ pageSelected }): JSX.Element => {
+const HeaderBar: FC<IHeaderBarProps> = ({ pageSelected }): JSX.Element => {
   const router = useRouter();
   const theme = useTheme();
 
