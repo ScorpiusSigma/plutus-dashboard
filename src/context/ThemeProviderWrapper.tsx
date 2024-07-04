@@ -1,9 +1,8 @@
 'use client';
-
 import { ReactNode, useContext } from 'react';
 import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeContext, ThemeProvider as CustomThemeProvider } from './theme-context';
+import { ThemeContext, ThemeProvider as CustomThemeProvider } from './ThemeProvider';
 
 const ThemeProviderClient = ({ children }: { children: ReactNode }): JSX.Element => {
   const { mode } = useContext(ThemeContext);

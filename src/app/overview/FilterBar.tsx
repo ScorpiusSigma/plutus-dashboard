@@ -1,11 +1,9 @@
 'use client';
-import ButtonAction from '@/components/buttons/button-action';
-import HeaderBar from '@/components/header-bar/header-bar';
-import MultipleSelectPlaceholder from '@/components/inputs/input-select-dropdown';
-import InputText from '@/components/inputs/input-text';
-import LayoutBoxVis from '@/components/layouts/layout-box-vis';
-import LayoutPaper from '@/components/layouts/layout-paper';
-import { DATA_POLLING_RATES } from '@/constants/filter-constants';
+import ButtonAction from '@/components/buttons/ButtonAction';
+import InputSelectDropdown from '@/components/inputs/InputSelectDropdown';
+import InputText from '@/components/inputs/InputText';
+import LayoutBoxVis from '@/components/layouts/LayoutBoxVis';
+import { DATA_POLLING_RATES } from '@/constants/constantsFilter';
 import { Box, Grid, Typography } from '@mui/material';
 
 const FilterBar = (): JSX.Element => {
@@ -32,7 +30,7 @@ const FilterBar = (): JSX.Element => {
                 <Typography>Setting:</Typography>
               </Grid>
               <Grid item>
-                <MultipleSelectPlaceholder options={DATA_POLLING_RATES} label="Data Polling Rate" valuePrefix=" / s" />
+                <InputSelectDropdown options={DATA_POLLING_RATES} label="Data Polling Rate" valuePrefix=" / s" />
               </Grid>
             </Grid>
           </Grid>

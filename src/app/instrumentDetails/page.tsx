@@ -1,6 +1,6 @@
 'use client';
 import { FC } from 'react';
-import HeaderBar from '@/components/header-bar/header-bar';
+import HeaderBar from '@/components/header-bar/HeaderBar';
 import { Box } from '@mui/material';
 
 const InstrumentDetailPage: FC = (): JSX.Element => {

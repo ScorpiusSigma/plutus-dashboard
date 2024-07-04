@@ -1,6 +1,6 @@
 'use client';
 import { AppBar, Box, Button, Divider, Grid, useTheme } from '@mui/material';
-import ButtonThemeToggle from '../buttons/button-theme-toggle';
+import ButtonThemeToggle from '../buttons/ButtonThemeToggle';
 import { useRouter } from 'next/navigation';
 
 interface IHeaderBarProps {

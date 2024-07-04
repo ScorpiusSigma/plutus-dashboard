@@ -1,10 +1,9 @@
 'use client';
 import { FC } from 'react';
-import HeaderBar from '@/components/header-bar/header-bar';
-import LayoutBoxVis from '@/components/layouts/layout-box-vis';
-import LayoutPaper from '@/components/layouts/layout-paper';
+import HeaderBar from '@/components/headerBar/HeaderBar';
+import LayoutPaper from '@/components/layouts/LayoutPaper';
 import { Box } from '@mui/material';
-import FilterBar from './filter-bar';
+import FilterBar from './FilterBar';
 
 const OverviewPage: FC = (): JSX.Element => {
   return (
