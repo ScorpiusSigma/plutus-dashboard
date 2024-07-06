@@ -4,6 +4,7 @@ import HeaderBar from '@/components/headerBar/HeaderBar';
 import LayoutPaper from '@/components/layouts/LayoutPaper';
 import { Box } from '@mui/material';
 import FilterBar from './FilterBar';
+import LayoutOverviewVis from './LayoutOverviewVis';
 
 const OverviewPage: FC = (): JSX.Element => {
   return (
@@ -11,6 +12,9 @@ const OverviewPage: FC = (): JSX.Element => {
       <HeaderBar pageSelected="Overview" />
       <LayoutPaper>
         <FilterBar />
+        <Box>
+          <LayoutOverviewVis />
+        </Box>
       </LayoutPaper>
     </Box>
   );

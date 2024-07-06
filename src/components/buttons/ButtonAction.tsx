@@ -1,6 +1,6 @@
 'use client';
 import { FC, ReactNode } from 'react';
-import { Button, darken, useTheme } from '@mui/material';
+import { Button, darken } from '@mui/material';
 
 interface IButtonActionProps {
   children: ReactNode;

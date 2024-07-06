@@ -11,8 +11,8 @@ const LayoutPaper: FC<ILayoutPaperProps> = ({ children }: ILayoutPaperProps): JS
 
   const styles = {
     position: 'static',
-    height: 'calc(100vh - 72px)',
-    mt: '72px',
+    height: 'calc(100vh - 64px)',
+    mt: '64px',
     bgcolor: `${theme.palette.mode === 'dark' ? 'black' : 'white'}`,
   };
 

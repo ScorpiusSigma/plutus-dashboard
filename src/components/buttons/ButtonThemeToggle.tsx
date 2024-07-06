@@ -1,7 +1,7 @@
 'use client';
 import { FC, useContext } from 'react';
 import { IconButton } from '@mui/material';
-import { ThemeContext } from '@/context/theme-context';
+import { ThemeContext } from '@/context/ThemeProvider';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 

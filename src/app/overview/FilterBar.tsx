@@ -8,8 +8,8 @@ import { Box, Grid, Typography } from '@mui/material';
 
 const FilterBar = (): JSX.Element => {
   return (
-    <Box sx={{ width: 'fit', pt: 2, mx: 4 }}>
-      <LayoutBoxVis>
+    <Box sx={{ width: 'fit', py: 1, mx: 4 }}>
+      <LayoutBoxVis margin={0}>
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item>
             <Grid container spacing={4} alignItems="center">
