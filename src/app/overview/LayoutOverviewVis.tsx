@@ -14,17 +14,17 @@ const OverviewContentLayout = (): JSX.Element => {
       <PanelGroup direction="vertical">
         <Panel>
           <PanelGroup direction="horizontal">
-            <Panel>
+            <Panel minSize={20}>
               <VisPLPlot />
             </Panel>
             <DividerResizable direction="vertical" />
-            <Panel>
+            <Panel minSize={20}>
               <PanelGroup direction="vertical">
-                <Panel>
+                <Panel minSize={20}>
                   <VisLeaderboard />
                 </Panel>
                 <DividerResizable direction="horizontal" />
-                <Panel>
+                <Panel minSize={20}>
                   <VisInstrOverview />
                 </Panel>
               </PanelGroup>
@@ -32,7 +32,7 @@ const OverviewContentLayout = (): JSX.Element => {
           </PanelGroup>
         </Panel>
         <DividerResizable direction="horizontal" />
-        <Panel>
+        <Panel minSize={20}>
           <VisTradeTicker />
         </Panel>
       </PanelGroup>

@@ -1,7 +1,8 @@
 import LayoutBoxVis from '@/components/layouts/LayoutBoxVis';
 import { Box, Typography } from '@mui/material';
+import { FC } from 'react';
 
-const VisLeaderboard = (): JSX.Element => {
+const VisLeaderboard: FC = (): JSX.Element => {
   return (
     <Box
       sx={{
@@ -13,7 +14,7 @@ const VisLeaderboard = (): JSX.Element => {
         width: '100%',
       }}
     >
-      <LayoutBoxVis margin="0px 0px 10px 10px">
+      <LayoutBoxVis margin="0">
         <Typography>Leaderboard</Typography>
       </LayoutBoxVis>
     </Box>

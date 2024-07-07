@@ -20,6 +20,7 @@ const DividerResizable: FC<IDividerResizableProps> = ({
     width: direction === 'horizontal' ? '100%' : size,
     height: direction === 'horizontal' ? size : '100%',
     cursor: direction === 'horizontal' ? 'row-resize' : 'col-resize',
+    margin: direction === 'horizontal' ? '10px 0px 10px 0px' : '0px 10px 0px 10px',
     transition: 'background-color 0.15s ease-in-out',
     border: 0,
     bgcolor: theme.palette.mode === 'dark' ? '#5b3fa0' : '#8757ff',

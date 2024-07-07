@@ -12,3 +12,32 @@
 body {
   font-family: 'proxima-nova', sans-serif;
 }
+
+.dark-scrollbar ::-webkit-scrollbar {
+  width: 6px;
+}
+.dark-scrollbar ::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+.dark-scrollbar ::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 8px;
+}
+.dark-scrollbar ::-webkit-scrollbar-thumb:hover {
+  background: #505050;
+}
+
+.light-scrollbar ::-webkit-scrollbar {
+  width: 6px;
+}
+.light-scrollbar ::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: #f1f1f1;
+}
+.light-scrollbar ::-webkit-scrollbar-thumb {
+  background: #d1d1d1;
+  border-radius: 8px;
+}
+.light-scrollbar ::-webkit-scrollbar-thumb:hover {
+  background: #bdbdbd;
+}

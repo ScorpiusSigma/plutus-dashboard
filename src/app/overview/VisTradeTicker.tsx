@@ -1,7 +1,8 @@
 import LayoutBoxVis from '@/components/layouts/LayoutBoxVis';
 import { Box, Typography } from '@mui/material';
+import { FC } from 'react';
 
-const VisTradeTicker = (): JSX.Element => {
+const VisTradeTicker: FC = (): JSX.Element => {
   return (
     <Box
       sx={{
@@ -13,7 +14,7 @@ const VisTradeTicker = (): JSX.Element => {
         width: '100%',
       }}
     >
-      <LayoutBoxVis margin="10px 0px 0px 0px">
+      <LayoutBoxVis margin="0">
         <Typography>Trade Ticker</Typography>
       </LayoutBoxVis>
     </Box>

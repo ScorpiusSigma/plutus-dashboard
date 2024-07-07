@@ -8,7 +8,7 @@ import { Box, Grid, Typography } from '@mui/material';
 
 const FilterBar = (): JSX.Element => {
   return (
-    <Box sx={{ width: 'fit', py: 1, mx: 4 }}>
+    <Box sx={{ width: 'fit', pt: 1, pb: 2, mx: 4 }}>
       <LayoutBoxVis margin={0}>
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item>

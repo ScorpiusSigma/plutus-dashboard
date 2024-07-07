@@ -12,9 +12,8 @@ const OverviewPage: FC = (): JSX.Element => {
       <HeaderBar pageSelected="Overview" />
       <LayoutPaper>
         <FilterBar />
-        <Box>
-          <LayoutOverviewVis />
-        </Box>
+
+        <LayoutOverviewVis />
       </LayoutPaper>
     </Box>
   );
