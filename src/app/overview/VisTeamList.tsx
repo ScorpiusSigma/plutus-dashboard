@@ -2,7 +2,7 @@ import LayoutBoxVis from '@/components/layouts/LayoutBoxVis';
 import useOverviewSettings from '@/stores/useOverviewSetting';
 import { Box, useTheme } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 
 interface IVisEntityListProps {
   teamColors: { [key: string]: string };
@@ -10,15 +10,28 @@ interface IVisEntityListProps {
 
 const VisTeamList: FC<IVisEntityListProps> = ({ teamColors }): JSX.Element => {
   const theme = useTheme();
-  const { overviewSetting } = useOverviewSettings();
+  const { overviewSetting, setOverviewSetting } = useOverviewSettings();
   const [sortedTeams, setSortedTeams] = useState<string[]>([]);
+  const [datagridSelection, setDatagridSelection] = useState<any[]>([]);
+
+  const handleTeamSelection = useCallback(
+    (datagridSelection: number[]): void => {
+      const teamsSelected: string[] = datagridSelection.map((index: number) => sortedTeams[index - 1]);
+      const updatedTeamsSelected = Object.keys(overviewSetting.teamsSelected).reduce((acc, teamName) => {
+        acc[teamName] = teamsSelected.includes(teamName);
+        return acc;
+      }, {} as Record<string, boolean>);
+      setOverviewSetting({ ...overviewSetting, teamsSelected: updatedTeamsSelected });
+    },
+    [datagridSelection],
+  );
 
   const columns: GridColDef[] = [
     {
       field: 'teamName',
       headerName: 'Team Name',
       flex: 1,
-      renderCell: (params) => <span style={{ color: teamColors[params.value] }}>{params.value}</span>,
+      renderCell: (params) => <Box sx={{ color: teamColors[params.value] }}>{params.value}</Box>,
     },
   ];
 
@@ -29,10 +42,22 @@ const VisTeamList: FC<IVisEntityListProps> = ({ teamColors }): JSX.Element => {
 
   useEffect(() => {
     if (overviewSetting.teamsSelected) {
-      const teams = [...overviewSetting.teamsSelected].sort();
+      const teams = [...Object.keys(overviewSetting.teamsSelected)].sort();
+      const initialSelection = teams.reduce((acc: number[], teamName, index) => {
+        if (overviewSetting.teamsSelected[teamName]) {
+          acc.push(index + 1);
+        }
+        return acc;
+      }, []);
+
       setSortedTeams(teams);
+      setDatagridSelection(initialSelection);
     }
-  }, [overviewSetting.teamsSelected]);
+  }, []);
+
+  useEffect(() => {
+    handleTeamSelection(datagridSelection);
+  }, [datagridSelection]);
 
   return (
     <Box
@@ -67,6 +92,10 @@ const VisTeamList: FC<IVisEntityListProps> = ({ teamColors }): JSX.Element => {
           rows={rows}
           columns={columns}
           checkboxSelection
+          rowSelectionModel={datagridSelection}
+          onRowSelectionModelChange={(rowsSelected) => {
+            setDatagridSelection(rowsSelected);
+          }}
           hideFooter
         />
       </LayoutBoxVis>

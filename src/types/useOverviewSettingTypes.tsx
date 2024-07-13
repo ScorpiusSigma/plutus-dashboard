@@ -1,5 +1,5 @@
 export interface IOverviewSetting {
-  teamsSelected: string[];
+  teamsSelected: Record<string, boolean>;
   dataPollingRate: number;
   instrumentFilter: string;
 }
