@@ -1,5 +1,5 @@
 'use client';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import HeaderBar from '@/components/headerBar/HeaderBar';
 import LayoutPaper from '@/components/layouts/LayoutPaper';
 import { Box } from '@mui/material';
@@ -12,7 +12,6 @@ const OverviewPage: FC = (): JSX.Element => {
       <HeaderBar pageSelected="Overview" />
       <LayoutPaper>
         <FilterBar />
-
         <LayoutOverviewVis />
       </LayoutPaper>
     </Box>
