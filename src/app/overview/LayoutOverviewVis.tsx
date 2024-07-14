@@ -1,14 +1,13 @@
 'use client';
-import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import ContainerMainContent from '@/components/containers/ContainerMainContent';
-import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
+import { Panel, PanelGroup } from 'react-resizable-panels';
 import DividerResizable from '@/components/dividers/DividerResizable';
 import VisPLPlot from './VisPLPlot';
 import VisLeaderboard from './VisLeaderboard';
 import VisInstrOverview from './VisInstrOverview';
 import VisTradeTicker from './VisTradeTicker';
 import { MOCK_USERS } from '@/constants/placeholderData';
-import { UserData } from '@/types/visDataTypes';
 import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10, schemeSet2 } from 'd3-scale-chromatic';
 

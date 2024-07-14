@@ -1,9 +1,32 @@
-import { PLFetchedData } from '@/types/visDataTypes';
+import { FetchedLeaderboard, FetchedPLData } from '@/types/visDataTypes';
 
-export const MOCK_PL_DATA: PLFetchedData[] = [
+// GET /user
+export const MOCK_USERS = [
   {
-    name: 'Team Alpha',
+    username: 'Team Alpha',
     id: 1,
+  },
+  {
+    username: 'Team Beta',
+    id: 2,
+  },
+  {
+    username: 'Team Gamma',
+    id: 3,
+  },
+  {
+    username: 'Team Delta',
+    id: 4,
+  },
+];
+
+// GET /pnl_history //
+export const MOCK_PL_DATA: FetchedPLData[] = [
+  {
+    user: {
+      username: 'Team Alpha',
+      id: 1,
+    },
     pnl_history: [
       { timestamp: '2024-01-01T00:00:00Z', pnl: 100 },
       { timestamp: '2024-02-01T00:00:00Z', pnl: 150 },
@@ -16,8 +39,10 @@ export const MOCK_PL_DATA: PLFetchedData[] = [
     ],
   },
   {
-    name: 'Team Beta',
-    id: 2,
+    user: {
+      username: 'Team Beta',
+      id: 2,
+    },
     pnl_history: [
       { timestamp: '2024-01-01T00:00:00Z', pnl: 200 },
       { timestamp: '2024-02-01T00:00:00Z', pnl: 250 },
@@ -30,8 +55,10 @@ export const MOCK_PL_DATA: PLFetchedData[] = [
     ],
   },
   {
-    name: 'Team Gamma',
-    id: 3,
+    user: {
+      username: 'Team Gamma',
+      id: 3,
+    },
     pnl_history: [
       { timestamp: '2024-01-01T00:00:00Z', pnl: 300 },
       { timestamp: '2024-02-01T00:00:00Z', pnl: 350 },
@@ -44,8 +71,10 @@ export const MOCK_PL_DATA: PLFetchedData[] = [
     ],
   },
   {
-    name: 'Team Delta',
-    id: 4,
+    user: {
+      username: 'Team Delta',
+      id: 4,
+    },
     pnl_history: [
       { timestamp: '2024-01-01T00:00:00Z', pnl: 400 },
       { timestamp: '2024-02-01T00:00:00Z', pnl: 450 },
@@ -57,32 +86,23 @@ export const MOCK_PL_DATA: PLFetchedData[] = [
       { timestamp: '2024-08-01T00:00:00Z', pnl: 750 },
     ],
   },
+];
+
+export const MOCK_LEADERBOARD_DATA: FetchedLeaderboard = [
   {
-    name: 'Team Epsilon',
-    id: 5,
-    pnl_history: [
-      { timestamp: '2024-01-01T00:00:00Z', pnl: 500 },
-      { timestamp: '2024-02-01T00:00:00Z', pnl: 550 },
-      { timestamp: '2024-03-01T00:00:00Z', pnl: 600 },
-      { timestamp: '2024-04-01T00:00:00Z', pnl: 650 },
-      { timestamp: '2024-05-01T00:00:00Z', pnl: 700 },
-      { timestamp: '2024-06-01T00:00:00Z', pnl: 750 },
-      { timestamp: '2024-07-01T00:00:00Z', pnl: 800 },
-      { timestamp: '2024-08-01T00:00:00Z', pnl: 850 },
-    ],
+    userid: 1,
+    pnl: 750,
   },
   {
-    name: 'Team Zeta',
-    id: 6,
-    pnl_history: [
-      { timestamp: '2024-01-01T00:00:00Z', pnl: 600 },
-      { timestamp: '2024-02-01T00:00:00Z', pnl: 650 },
-      { timestamp: '2024-03-01T00:00:00Z', pnl: 700 },
-      { timestamp: '202-04-01T00:00:00Z', pnl: 750 },
-      { timestamp: '2024-05-01T00:00:00Z', pnl: 800 },
-      { timestamp: '2024-06-01T00:00:00Z', pnl: 850 },
-      { timestamp: '2024-07-01T00:00:00Z', pnl: 900 },
-      { timestamp: '2024-08-01T00:00:00Z', pnl: 950 },
-    ],
+    userid: 2,
+    pnl: 650,
+  },
+  {
+    userid: 3,
+    pnl: 550,
+  },
+  {
+    userid: 4,
+    pnl: 450,
   },
 ];

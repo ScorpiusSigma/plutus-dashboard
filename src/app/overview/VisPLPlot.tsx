@@ -3,8 +3,6 @@ import LayoutBoxVis from '@/components/layouts/LayoutBoxVis';
 import { FetchedPLData, PLPlotDataPoint } from '@/types/visDataTypes';
 import { Box, Typography, useTheme } from '@mui/material';
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { schemeCategory10, schemeSet2 } from 'd3-scale-chromatic';
-import { scaleOrdinal } from 'd3-scale';
 import { Dispatch, FC, SetStateAction, useCallback, useEffect, useState } from 'react';
 import VisTeamList from './VisTeamList';
 import { Panel, PanelGroup } from 'react-resizable-panels';
