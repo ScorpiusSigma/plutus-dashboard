@@ -9,13 +9,16 @@ interface IOverviewSettingStore {
 
 const useOverviewSettings = create<IOverviewSettingStore>((set) => ({
   overviewSetting: {
-    teamsSelected: {
+    usersSelected: {
       'Team Alpha': true,
       'Team Beta': true,
       'Team Gamma': true,
     },
     dataPollingRate: 1,
     instrumentFilter: '',
+    userDict: {
+      1: { username: 'Team Alpha', color: '#66c2a5' },
+    },
   },
 
   setOverviewSetting: (overviewSetting: IOverviewSetting) => {

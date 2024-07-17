@@ -13,27 +13,32 @@ import moment from 'moment';
 
 // USING MOCK_PL_DATA //
 
-interface IVisPLPlotProps {
-  userColors: { [key: string]: string };
-  setUserColors: Dispatch<SetStateAction<{ [key: string]: string }>>;
-}
+interface IVisPLPlotProps {}
 
-const VisPLPlot: FC<IVisPLPlotProps> = ({ userColors, setUserColors }): JSX.Element => {
+const VisPLPlot: FC<IVisPLPlotProps> = (): JSX.Element => {
   const theme = useTheme();
   const { overviewSetting, setOverviewSetting } = useOverviewSettings();
   const [pLDataFetched, setPLDataFetched] = useState<FetchedPLData[]>([]);
   const [PLPlotdata, setPLPlotData] = useState<PLPlotDataPoint[]>([]);
 
   const renderPlotLines = useCallback(
-    (PLPlotdata: PLPlotDataPoint[], teamsSelected: Record<string, boolean>): JSX.Element[] | void => {
+    (PLPlotdata: PLPlotDataPoint[], usersSelected: Record<string, boolean>): JSX.Element[] | void => {
       if (PLPlotdata.length !== 0) {
-        const keys = Object.keys(PLPlotdata[0]).filter((key: string) => key !== 'dateTimeStamp' && teamsSelected[key]);
-        return keys.map((key: string) => (
-          <Line key={key} type="linear" dataKey={key} stroke={userColors[key]} dot={false} />
+        const useridList = Object.keys(PLPlotdata[0]).filter(
+          (key: string) => key !== 'dateTimeStamp' && usersSelected[key],
+        );
+        return useridList.map((userid: string) => (
+          <Line
+            key={userid}
+            type="linear"
+            dataKey={userid}
+            stroke={overviewSetting.userDict[Number(userid)].color}
+            dot={false}
+          />
         ));
       }
     },
-    [PLPlotdata, overviewSetting.teamsSelected],
+    [PLPlotdata, overviewSetting.usersSelected],
   );
 
   const transformDataToPlotPoints = useCallback(
@@ -49,10 +54,9 @@ const VisPLPlot: FC<IVisPLPlotProps> = ({ userColors, setUserColors }): JSX.Elem
           });
         }
       });
-      console.log(plotData);
       return plotData;
     },
-    [overviewSetting.teamsSelected],
+    [overviewSetting.usersSelected],
   );
 
   // ----- Mock data is fetched here ----- //
@@ -66,7 +70,7 @@ const VisPLPlot: FC<IVisPLPlotProps> = ({ userColors, setUserColors }): JSX.Elem
     );
     setOverviewSetting({
       ...overviewSetting,
-      teamsSelected: MOCK_PL_DATA.reduce((acc, userData) => {
+      usersSelected: MOCK_PL_DATA.reduce((acc, userData) => {
         acc[userData.user.username] = true;
         return acc;
       }, {} as Record<string, boolean>),
@@ -89,7 +93,7 @@ const VisPLPlot: FC<IVisPLPlotProps> = ({ userColors, setUserColors }): JSX.Elem
         <PanelGroup direction="horizontal">
           <Panel>
             <ResponsiveContainer>
-              <VisTeamList teamColors={userColors} />
+              <VisTeamList />
             </ResponsiveContainer>
           </Panel>
           <DividerResizable direction="vertical" />
@@ -108,7 +112,7 @@ const VisPLPlot: FC<IVisPLPlotProps> = ({ userColors, setUserColors }): JSX.Elem
                 <XAxis dataKey="dateTimeStamp" />
                 <YAxis />
                 <Tooltip contentStyle={{ backgroundColor: theme.palette.grey[800], fontSize: '15px' }} />
-                {renderPlotLines(PLPlotdata, overviewSetting.teamsSelected || [])}
+                {renderPlotLines(PLPlotdata, overviewSetting.usersSelected || [])}
               </LineChart>
             </ResponsiveContainer>
           </Panel>

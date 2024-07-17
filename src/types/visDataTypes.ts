@@ -3,14 +3,13 @@ type PLHistoryEntry = {
   pnl: number;
 };
 
-interface LeaderboardEntry {
+export interface LeaderboardEntry {
   userid: number;
   pnl: number;
 }
 
 export interface UserData {
-  username: string;
-  id: number;
+  [userid: number]: string; // userid: username
 }
 
 export type PLPlotDataPoint = {

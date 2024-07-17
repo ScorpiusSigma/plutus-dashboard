@@ -1,63 +1,78 @@
 import LayoutBoxVis from '@/components/layouts/LayoutBoxVis';
 import useOverviewSettings from '@/stores/useOverviewSetting';
 import { Box, useTheme } from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 import { FC, useCallback, useEffect, useState } from 'react';
 
-interface IVisEntityListProps {
-  teamColors: { [key: string]: string };
+interface IVisEntityListProps {}
+
+interface ISortedUser {
+  userid: number;
+  username: string;
+  color: string;
 }
 
-const VisTeamList: FC<IVisEntityListProps> = ({ teamColors }): JSX.Element => {
+const VisTeamList: FC<IVisEntityListProps> = (): JSX.Element => {
   const theme = useTheme();
   const { overviewSetting, setOverviewSetting } = useOverviewSettings();
-  const [sortedTeams, setSortedTeams] = useState<string[]>([]);
+  const [sortedUsers, setSortedUsers] = useState<ISortedUser[]>([]);
   const [datagridSelection, setDatagridSelection] = useState<any[]>([]);
 
-  const handleTeamSelection = useCallback(
-    (datagridSelection: number[]): void => {
-      const teamsSelected: string[] = datagridSelection.map((index: number) => sortedTeams[index - 1]);
-      const updatedTeamsSelected = Object.keys(overviewSetting.teamsSelected).reduce((acc, teamName) => {
-        acc[teamName] = teamsSelected.includes(teamName);
+  const columns: GridColDef[] = [
+    {
+      field: 'username',
+      headerName: 'User',
+      flex: 1,
+      renderCell: (params) => {
+        const user = params.row.user;
+        return <Box sx={{ color: overviewSetting.userDict[user.userid].color }}>{user.username}</Box>;
+      },
+      sortComparator: (v1, v2, cellParams1, cellParams2) => {
+        const username1 = sortedUsers[Number(cellParams1.id) - 1].username;
+        const username2 = sortedUsers[Number(cellParams2.id) - 1].username;
+        return username2.localeCompare(username1);
+      },
+    },
+  ];
+
+  const rows = sortedUsers.map((user: ISortedUser, index) => ({
+    id: index + 1,
+    user,
+  }));
+
+  const handleUserSelection = useCallback(
+    (datagridSelection: GridRowSelectionModel, sortedUsers: ISortedUser[]): void => {
+      const usersSelected = sortedUsers.reduce((acc, user) => {
+        acc[user.userid] = false;
         return acc;
-      }, {} as Record<string, boolean>);
-      setOverviewSetting({ ...overviewSetting, teamsSelected: updatedTeamsSelected });
+      }, {} as Record<number, boolean>);
+
+      datagridSelection.forEach((index) => {
+        const userId = sortedUsers[Number(index) - 1].userid;
+        usersSelected[userId] = true;
+      });
+      setOverviewSetting({ ...overviewSetting, usersSelected: usersSelected });
+      setDatagridSelection(datagridSelection);
     },
     [datagridSelection],
   );
 
-  const columns: GridColDef[] = [
-    {
-      field: 'teamName',
-      headerName: 'Team Name',
-      flex: 1,
-      renderCell: (params) => <Box sx={{ color: teamColors[params.value] }}>{params.value}</Box>,
-    },
-  ];
-
-  const rows = sortedTeams.map((teamName, index) => ({
-    id: index + 1,
-    teamName,
-  }));
-
   useEffect(() => {
-    if (overviewSetting.teamsSelected) {
-      const teams = [...Object.keys(overviewSetting.teamsSelected)].sort();
-      const initialSelection = teams.reduce((acc: number[], teamName, index) => {
-        if (overviewSetting.teamsSelected[teamName]) {
-          acc.push(index + 1);
-        }
-        return acc;
-      }, []);
-
-      setSortedTeams(teams);
-      setDatagridSelection(initialSelection);
-    }
+    const initUserDict = overviewSetting.userDict;
+    const initSortedUsers: ISortedUser[] = Object.keys(initUserDict).map((userid: string) => ({
+      userid: Number(userid),
+      username: initUserDict[Number(userid)].username,
+      color: initUserDict[Number(userid)].color,
+    }));
+    const initialSelection = initSortedUsers.reduce((acc: number[], user: ISortedUser, index: number) => {
+      if (overviewSetting.usersSelected[user.userid]) {
+        acc.push(index + 1);
+      }
+      return acc;
+    }, []);
+    setSortedUsers(initSortedUsers);
+    setDatagridSelection(initialSelection);
   }, []);
-
-  useEffect(() => {
-    handleTeamSelection(datagridSelection);
-  }, [datagridSelection]);
 
   return (
     <Box
@@ -74,6 +89,7 @@ const VisTeamList: FC<IVisEntityListProps> = ({ teamColors }): JSX.Element => {
         <DataGrid
           className={`${theme.palette.mode === 'dark' ? 'dark-scrollbar' : 'light-scrollbar'}`}
           sx={{
+            border: 0,
             '& .MuiDataGrid-columnHeader': {
               bgcolor: `${theme.palette.mode === 'dark' ? theme.palette.grey[900] : 'none'}`,
             },
@@ -94,7 +110,7 @@ const VisTeamList: FC<IVisEntityListProps> = ({ teamColors }): JSX.Element => {
           checkboxSelection
           rowSelectionModel={datagridSelection}
           onRowSelectionModelChange={(rowsSelected) => {
-            setDatagridSelection(rowsSelected);
+            handleUserSelection(rowsSelected, sortedUsers);
           }}
           hideFooter
         />

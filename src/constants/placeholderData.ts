@@ -1,26 +1,26 @@
-import { FetchedLeaderboard, FetchedPLData } from '@/types/visDataTypes';
+import { FetchedLeaderboard, FetchedPLData, UserData } from '@/types/visDataTypes';
 
 // GET /user
-export const MOCK_USERS = [
+export const MOCK_USERS: any = [
   {
     username: 'Team Alpha',
-    id: 1,
+    userid: 1,
   },
   {
     username: 'Team Beta',
-    id: 2,
+    userid: 2,
   },
   {
     username: 'Team Gamma',
-    id: 3,
+    userid: 3,
   },
   {
     username: 'Team Delta',
-    id: 4,
+    userid: 4,
   },
 ];
 
-// GET /pnl_history //
+// GET /pnl_history
 export const MOCK_PL_DATA: FetchedPLData[] = [
   {
     user: {
@@ -88,6 +88,7 @@ export const MOCK_PL_DATA: FetchedPLData[] = [
   },
 ];
 
+// GET /leaderboard
 export const MOCK_LEADERBOARD_DATA: FetchedLeaderboard = [
   {
     userid: 1,
