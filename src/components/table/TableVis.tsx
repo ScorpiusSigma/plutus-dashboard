@@ -1,15 +1,21 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useTheme } from '@mui/material';
 import { FC } from 'react';
 import { TableHeaderFormat, TableUserColors } from '@/types/TableVisTypes';
+import useOverviewSettings from '@/stores/useOverviewSetting';
 
 interface ITableVisProps {
   headerFormat: TableHeaderFormat;
-  userColors?: TableUserColors;
   data: any[];
 }
 
-const TableVis: FC<ITableVisProps> = ({ headerFormat, data, userColors }): JSX.Element => {
+const TableVis: FC<ITableVisProps> = ({ headerFormat, data }): JSX.Element => {
   const theme = useTheme();
+  const { overviewSetting } = useOverviewSettings();
+
+  const getUsernameById = (userid: number): string => {
+    const users = overviewSetting.userDict;
+    return users[userid].username || '';
+  };
 
   return (
     <TableContainer
@@ -45,13 +51,13 @@ const TableVis: FC<ITableVisProps> = ({ headerFormat, data, userColors }): JSX.E
                       sx={{
                         color:
                           header === 'username'
-                            ? userColors?.[header]
+                            ? overviewSetting.userDict[rowData.username].color
                             : header === 'auto'
                             ? ''
                             : headerFormat[header].color,
                       }}
                     >
-                      {rowData[header]}
+                      {header === 'username' ? getUsernameById(rowData[header]) : rowData[header]}
                     </TableCell>
                   );
                 })}

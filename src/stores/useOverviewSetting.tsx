@@ -10,9 +10,7 @@ interface IOverviewSettingStore {
 const useOverviewSettings = create<IOverviewSettingStore>((set) => ({
   overviewSetting: {
     usersSelected: {
-      'Team Alpha': true,
-      'Team Beta': true,
-      'Team Gamma': true,
+      1: false,
     },
     dataPollingRate: 1,
     instrumentFilter: '',

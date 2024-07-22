@@ -17,9 +17,9 @@ interface IVisPLPlotProps {}
 
 const VisPLPlot: FC<IVisPLPlotProps> = (): JSX.Element => {
   const theme = useTheme();
+  const [fetchedPLData, setFetchedPLData] = useState<FetchedPLData[]>();
   const { overviewSetting, setOverviewSetting } = useOverviewSettings();
-  const [pLDataFetched, setPLDataFetched] = useState<FetchedPLData[]>([]);
-  const [PLPlotdata, setPLPlotData] = useState<PLPlotDataPoint[]>([]);
+  const [PLPlotData, setPLPlotData] = useState<PLPlotDataPoint[]>([]);
 
   const renderPlotLines = useCallback(
     (PLPlotdata: PLPlotDataPoint[], usersSelected: Record<string, boolean>): JSX.Element[] | void => {
@@ -38,12 +38,16 @@ const VisPLPlot: FC<IVisPLPlotProps> = (): JSX.Element => {
         ));
       }
     },
-    [PLPlotdata, overviewSetting.usersSelected],
+    [PLPlotData, overviewSetting.usersSelected],
   );
 
   const transformDataToPlotPoints = useCallback(
     (data: FetchedPLData[], teamNames: string[]): PLPlotDataPoint[] => {
       const plotData: PLPlotDataPoint[] = [];
+      const usersSelected: any = overviewSetting.usersSelected;
+      const selectedUsers: string[] = Object.keys(usersSelected).filter((userid: string) => {
+        usersSelected[Number(userid)] === true;
+      });
       data.forEach((userEntry) => {
         if (teamNames.includes(userEntry.user.username)) {
           userEntry.pnl_history.forEach((entry, index) => {
@@ -61,21 +65,34 @@ const VisPLPlot: FC<IVisPLPlotProps> = (): JSX.Element => {
 
   // ----- Mock data is fetched here ----- //
   useEffect(() => {
-    setPLDataFetched(MOCK_PL_DATA);
-    setPLPlotData(
-      transformDataToPlotPoints(
-        MOCK_PL_DATA,
-        MOCK_PL_DATA.map((team) => team.user.username),
-      ),
-    );
-    setOverviewSetting({
-      ...overviewSetting,
-      usersSelected: MOCK_PL_DATA.reduce((acc, userData) => {
-        acc[userData.user.username] = true;
-        return acc;
-      }, {} as Record<string, boolean>),
-    });
+    setFetchedPLData(MOCK_PL_DATA);
+    if (fetchedPLData) {
+      setPLPlotData(
+        transformDataToPlotPoints(
+          fetchedPLData,
+          fetchedPLData.map((team) => team.user.username),
+        ),
+      );
+      setOverviewSetting({
+        ...overviewSetting,
+        usersSelected: fetchedPLData.reduce((acc, userData) => {
+          acc[userData.user.username] = true;
+          return acc;
+        }, {} as Record<string, boolean>),
+      });
+    }
   }, []);
+
+  useEffect(() => {
+    if (fetchedPLData) {
+      const updatedPLPlotData = transformDataToPlotPoints(
+        fetchedPLData,
+        fetchedPLData.map((team) => team.user.username),
+      );
+      console.log(updatedPLPlotData);
+      setPLPlotData(updatedPLPlotData);
+    }
+  }, [overviewSetting.usersSelected]);
 
   return (
     <Box
@@ -100,7 +117,7 @@ const VisPLPlot: FC<IVisPLPlotProps> = (): JSX.Element => {
           <Panel>
             <ResponsiveContainer>
               <LineChart
-                data={PLPlotdata}
+                data={PLPlotData}
                 margin={{
                   top: 10,
                   right: 30,
@@ -112,7 +129,7 @@ const VisPLPlot: FC<IVisPLPlotProps> = (): JSX.Element => {
                 <XAxis dataKey="dateTimeStamp" />
                 <YAxis />
                 <Tooltip contentStyle={{ backgroundColor: theme.palette.grey[800], fontSize: '15px' }} />
-                {renderPlotLines(PLPlotdata, overviewSetting.usersSelected || [])}
+                {renderPlotLines(PLPlotData, overviewSetting.usersSelected || [])}
               </LineChart>
             </ResponsiveContainer>
           </Panel>

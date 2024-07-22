@@ -56,7 +56,7 @@ const OverviewContentLayout: FC = (): JSX.Element => {
             <Panel minSize={20}>
               <PanelGroup direction="vertical">
                 <Panel minSize={20}>
-                  <VisLeaderboard users={users} userColors={userColors} />
+                  <VisLeaderboard />
                 </Panel>
                 <DividerResizable direction="horizontal" />
                 <Panel minSize={20}>

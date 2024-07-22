@@ -8,8 +8,9 @@ export interface LeaderboardEntry {
   pnl: number;
 }
 
-export interface UserData {
-  [userid: number]: string; // userid: username
+export interface UserDataRaw {
+  username: string;
+  userid: number; // userid: username
 }
 
 export type PLPlotDataPoint = {
@@ -20,11 +21,11 @@ export type PLPlotDataPoint = {
 export type FetchedPLData = {
   user: {
     username: string;
-    id: number;
+    userid: number;
   };
   pnl_history: PLHistoryEntry[];
 };
 
-export type FetchedUserData = UserData[];
+export type FetchedUserData = UserDataRaw[];
 
 export type FetchedLeaderboard = LeaderboardEntry[];

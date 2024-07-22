@@ -1,4 +1,4 @@
-import { FetchedLeaderboard, FetchedPLData, UserData } from '@/types/visDataTypes';
+import { FetchedLeaderboard, FetchedPLData, UserDataRaw } from '@/types/visDataTypes';
 
 // GET /user
 export const MOCK_USERS: any = [
@@ -25,7 +25,7 @@ export const MOCK_PL_DATA: FetchedPLData[] = [
   {
     user: {
       username: 'Team Alpha',
-      id: 1,
+      userid: 1,
     },
     pnl_history: [
       { timestamp: '2024-01-01T00:00:00Z', pnl: 100 },
@@ -41,7 +41,7 @@ export const MOCK_PL_DATA: FetchedPLData[] = [
   {
     user: {
       username: 'Team Beta',
-      id: 2,
+      userid: 2,
     },
     pnl_history: [
       { timestamp: '2024-01-01T00:00:00Z', pnl: 200 },
@@ -57,7 +57,7 @@ export const MOCK_PL_DATA: FetchedPLData[] = [
   {
     user: {
       username: 'Team Gamma',
-      id: 3,
+      userid: 3,
     },
     pnl_history: [
       { timestamp: '2024-01-01T00:00:00Z', pnl: 300 },
@@ -73,7 +73,7 @@ export const MOCK_PL_DATA: FetchedPLData[] = [
   {
     user: {
       username: 'Team Delta',
-      id: 4,
+      userid: 4,
     },
     pnl_history: [
       { timestamp: '2024-01-01T00:00:00Z', pnl: 400 },
