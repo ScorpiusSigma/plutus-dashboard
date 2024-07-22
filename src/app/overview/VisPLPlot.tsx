@@ -30,6 +30,7 @@ const VisPLPlot: FC<IVisPLPlotProps> = (): JSX.Element => {
         return useridList.map((userid: string) => (
           <Line
             key={userid}
+            name={overviewSetting.userDict[Number(userid)].username || ''}
             type="linear"
             dataKey={userid}
             stroke={overviewSetting.userDict[Number(userid)].color}
@@ -42,19 +43,21 @@ const VisPLPlot: FC<IVisPLPlotProps> = (): JSX.Element => {
   );
 
   const transformDataToPlotPoints = useCallback(
-    (data: FetchedPLData[], teamNames: string[]): PLPlotDataPoint[] => {
+    (fetchedPLData: FetchedPLData[], teamNames: string[]): PLPlotDataPoint[] => {
       const plotData: PLPlotDataPoint[] = [];
       const usersSelected: any = overviewSetting.usersSelected;
-      const selectedUsers: string[] = Object.keys(usersSelected).filter((userid: string) => {
-        usersSelected[Number(userid)] === true;
-      });
-      data.forEach((userEntry) => {
-        if (teamNames.includes(userEntry.user.username)) {
+      const selectedUsers: number[] = Object.keys(usersSelected)
+        .filter((userid: string) => {
+          return usersSelected[Number(userid)] === true;
+        })
+        .map((userid: string) => Number(userid));
+      fetchedPLData.forEach((userEntry) => {
+        if (selectedUsers.includes(userEntry.user.userid)) {
           userEntry.pnl_history.forEach((entry, index) => {
             if (!plotData[index]) {
               plotData[index] = { dateTimeStamp: moment(entry.timestamp).format('DD-MM-YY') };
             }
-            plotData[index][userEntry.user.username] = entry.pnl;
+            plotData[index][userEntry.user.userid] = entry.pnl;
           });
         }
       });
@@ -89,7 +92,6 @@ const VisPLPlot: FC<IVisPLPlotProps> = (): JSX.Element => {
         fetchedPLData,
         fetchedPLData.map((team) => team.user.username),
       );
-      console.log(updatedPLPlotData);
       setPLPlotData(updatedPLPlotData);
     }
   }, [overviewSetting.usersSelected]);
