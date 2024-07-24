@@ -74,6 +74,57 @@ const VisTeamList: FC<IVisEntityListProps> = (): JSX.Element => {
     setDatagridSelection(initialSelection);
   }, []);
 
+  const dataGridStyles = {
+    border: 0,
+    '& .MuiDataGrid-columnHeader': {
+      maxHeight: '50px !important',
+      minHeight: '50px !important',
+      height: '50px !important',
+      bgcolor: `${theme.palette.mode === 'dark' ? theme.palette.grey[900] : 'none'}`,
+    },
+    '& .MuiDataGrid-scrollbarFiller': {
+      bgcolor: `${theme.palette.mode === 'dark' ? theme.palette.grey[900] : 'none'}`,
+      '&:hover': {
+        bgcolor: `${theme.palette.mode === 'dark' ? theme.palette.grey[700] : theme.palette.grey[200]}`,
+      },
+    },
+    '& .MuiDataGrid-row': {
+      maxHeight: '40px !important',
+      minHeight: '40px !important',
+      height: '40px !important',
+      justifyItems: 'center',
+      alignItems: 'center',
+      '&.Mui-selected': {
+        backgroundColor: `${theme.palette.mode === 'dark' ? '#2a2645' : '#e1deef'}`,
+        '&:hover': {
+          bgcolor: `${theme.palette.mode === 'dark' ? theme.palette.grey[700] : theme.palette.grey[200]}`,
+        },
+      },
+      '&:hover': {
+        backgroundColor: 'lightpurple',
+      },
+    },
+    '& .MuiBox-root': {
+      display: 'flex',
+      maxHeight: '40px !important',
+      minHeight: '40px !important',
+      height: '40px !important',
+      alignItems: 'center',
+      textAlign: 'center',
+    },
+    '& .MuiDataGrid-cell': {
+      maxHeight: '40px !important',
+      minHeight: '40px !important',
+      height: '40px !important',
+      justifyItems: 'center',
+      alignItems: 'center',
+    },
+    '& .MuiSvgIcon-root': {
+      color: theme.palette.grey[500],
+    },
+    height: '100%',
+  };
+
   return (
     <Box
       sx={{
@@ -83,28 +134,14 @@ const VisTeamList: FC<IVisEntityListProps> = (): JSX.Element => {
         alignContent: 'center',
         height: '100%',
         width: '100%',
+        mb: '10px',
+        pb: '15px',
       }}
     >
-      <LayoutBoxVis margin="0">
+      <LayoutBoxVis margin="0" sx={{ border: 'none' }}>
         <DataGrid
           className={`${theme.palette.mode === 'dark' ? 'dark-scrollbar' : 'light-scrollbar'}`}
-          sx={{
-            border: 0,
-            '& .MuiDataGrid-columnHeader': {
-              bgcolor: `${theme.palette.mode === 'dark' ? theme.palette.grey[900] : 'none'}`,
-            },
-            '& .MuiDataGrid-scrollbarFiller': {
-              bgcolor: `${theme.palette.mode === 'dark' ? theme.palette.grey[900] : 'none'}`,
-            },
-
-            '& .MuiSvgIcon-root': {
-              bgcolor: `${theme.palette.mode === 'dark' ? 'theme.palette.grey[900]' : 'none'}`,
-              ':focus': {
-                bgcolor: '#5b3fa0',
-              },
-            },
-            height: 'calc(100% - 15px)',
-          }}
+          sx={dataGridStyles}
           rows={rows}
           columns={columns}
           checkboxSelection

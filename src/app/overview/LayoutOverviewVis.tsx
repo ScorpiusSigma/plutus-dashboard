@@ -54,21 +54,21 @@ const OverviewContentLayout: FC = (): JSX.Element => {
             </Panel>
             <DividerResizable direction="vertical" />
             <Panel minSize={20}>
-              <PanelGroup direction="vertical">
-                <Panel minSize={20}>
-                  <VisLeaderboard />
-                </Panel>
-                <DividerResizable direction="horizontal" />
-                <Panel minSize={20}>
-                  <VisInstrOverview />
-                </Panel>
-              </PanelGroup>
+              <VisLeaderboard />
             </Panel>
           </PanelGroup>
         </Panel>
         <DividerResizable direction="horizontal" />
         <Panel minSize={20}>
-          <VisTradeTicker />
+          <PanelGroup direction="horizontal">
+            <Panel minSize={20}>
+              <VisInstrOverview />
+            </Panel>
+            <DividerResizable direction="vertical" />
+            <Panel minSize={20}>
+              <VisTradeTicker />
+            </Panel>
+          </PanelGroup>
         </Panel>
       </PanelGroup>
     </ContainerMainContent>

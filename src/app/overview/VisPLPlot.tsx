@@ -115,15 +115,15 @@ const VisPLPlot: FC<IVisPLPlotProps> = (): JSX.Element => {
               <VisTeamList />
             </ResponsiveContainer>
           </Panel>
-          <DividerResizable direction="vertical" />
+          <DividerResizable direction="vertical" sx={{ height: 'calc(100% - 25px)' }} />
           <Panel>
             <ResponsiveContainer>
               <LineChart
                 data={PLPlotData}
                 margin={{
                   top: 10,
-                  right: 30,
-                  left: 20,
+                  right: 20,
+                  left: 5,
                   bottom: 15,
                 }}
               >
