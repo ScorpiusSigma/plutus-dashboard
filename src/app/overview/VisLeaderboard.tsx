@@ -20,7 +20,7 @@ const VisLeaderboard: FC<IVisLeaderboardProps> = (): JSX.Element => {
   const [columnHeader, setColumnHeader] = useState<TableHeaderFormat>({
     rank: { columnHeader: 'Rank', color: 'auto' },
     username: { columnHeader: 'User', color: 'auto' },
-    pnl: { columnHeader: 'PnL', color: '#69aba7' },
+    pnl: { columnHeader: 'PnL', color: '#81c1bd' },
   });
 
   const updateLeaderboardData = useCallback((): void => {
