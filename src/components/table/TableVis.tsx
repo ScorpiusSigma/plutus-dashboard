@@ -8,6 +8,39 @@ interface ITableVisProps {
   data: any[];
 }
 
+const tableStyles: any = {
+  darkScrollbar: {
+    '::-webkit-scrollbar': {
+      width: '6px',
+    },
+    '::-webkit-scrollbar-track': {
+      borderRadius: '10px',
+    },
+    '::-webkit-scrollbar-thumb': {
+      backgroundColor: '#424242',
+      borderRadius: '8px',
+      '&:hover': {
+        backgroundColor: '#505050',
+      },
+    },
+  },
+  lightScrollbar: {
+    '::-webkit-scrollbar': {
+      width: '6px',
+    },
+    '::-webkit-scrollbar-track': {
+      borderRadius: '10px',
+    },
+    '::-webkit-scrollbar-thumb': {
+      backgroundColor: '#b4b4b4',
+      borderRadius: '8px',
+      '&:hover': {
+        backgroundColor: 'none',
+      },
+    },
+  },
+};
+
 const TableVis: FC<ITableVisProps> = ({ headerFormat, data }): JSX.Element => {
   const theme = useTheme();
   const { overviewSetting } = useOverviewSettings();
@@ -17,19 +50,20 @@ const TableVis: FC<ITableVisProps> = ({ headerFormat, data }): JSX.Element => {
     return users[userid].username || '';
   };
 
+  const getTableStyle = (): any => {
+    return theme.palette.mode === 'dark' ? tableStyles.darkScrollbar : tableStyles.lightScrollbar;
+  };
+
   return (
     <TableContainer
-      component={Paper}
       className={`${theme.palette.mode === 'dark' ? 'dark-scrollbar' : 'light-scrollbar'}`}
       sx={{
         height: '100%',
         my: 1,
-        '& .MuiDataGrid-scrollbarFiller': {
-          bgcolor: `${theme.palette.mode === 'dark' ? theme.palette.grey[900] : 'none'}`,
-        },
         '& .MuiTableCell-root': {
           py: '5px',
         },
+        ...getTableStyle(),
       }}
     >
       <Table>

@@ -55,7 +55,7 @@ const VisLeaderboard: FC<IVisLeaderboardProps> = (): JSX.Element => {
     >
       <LayoutBoxVis margin="0">
         <Typography>Leaderboard</Typography>
-        <TableVis headerFormat={columnHeader} data={leaderboardData}></TableVis>
+        <TableVis headerFormat={columnHeader} data={leaderboardData} />
       </LayoutBoxVis>
     </Box>
   );
