@@ -1,15 +1,17 @@
 'use client';
-import { Divider, DividerProps, useTheme } from '@mui/material';
+import { Divider, DividerProps, SxProps, Theme, useTheme } from '@mui/material';
 import React, { FC, useState } from 'react';
 import { PanelResizeHandle } from 'react-resizable-panels';
 
 interface IDividerResizableProps extends DividerProps {
   direction: 'horizontal' | 'vertical';
+  sx?: SxProps<Theme>;
 }
 
 const DividerResizable: FC<IDividerResizableProps> = ({
   id = 'drag-bar',
   direction,
+  sx,
   ...props
 }: IDividerResizableProps): JSX.Element => {
   const theme = useTheme();
@@ -34,7 +36,7 @@ const DividerResizable: FC<IDividerResizableProps> = ({
 
   return (
     <PanelResizeHandle>
-      <Divider orientation={direction} id={id} tabIndex={0} sx={styles} {...props} />
+      <Divider orientation={direction} id={id} tabIndex={0} sx={{ ...styles, ...sx }} {...props} />
     </PanelResizeHandle>
   );
 };
