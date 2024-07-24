@@ -59,6 +59,7 @@ const TableVis: FC<ITableVisProps> = ({ headerFormat, data }): JSX.Element => {
       className={`${theme.palette.mode === 'dark' ? 'dark-scrollbar' : 'light-scrollbar'}`}
       sx={{
         height: '100%',
+        pb: '20px',
         my: 1,
         '& .MuiTableCell-root': {
           py: '5px',
