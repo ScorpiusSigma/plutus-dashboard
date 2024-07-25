@@ -31,10 +31,10 @@ const InputSelectDropdown: FC<IInputSelectDropdownProps> = ({ width, options, la
     formControl: {
       width: width || '200px',
       height: '30px',
-      bgcolor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : theme.palette.grey[200],
+      bgcolor: theme.palette.grey[theme.palette.mode === 'dark' ? 800 : 200],
       '& .MuiOutlinedInput-root': {
         '& fieldset': {
-          borderColor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : theme.palette.grey[200],
+          borderColor: theme.palette.grey[theme.palette.mode === 'dark' ? 800 : 200],
           borderRadius: 0,
         },
         '&:hover fieldset': {
@@ -55,7 +55,7 @@ const InputSelectDropdown: FC<IInputSelectDropdownProps> = ({ width, options, la
     },
     select: {
       height: '30px',
-      color: theme.palette.mode === 'light' ? theme.palette.grey[800] : theme.palette.grey[400],
+      color: theme.palette.grey[theme.palette.mode === 'light' ? 800 : 400],
     },
     menuProps: {
       PaperProps: {

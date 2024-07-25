@@ -1,5 +1,6 @@
 import LayoutBoxVis from '@/components/layouts/LayoutBoxVis';
 import useOverviewSettings from '@/stores/useOverviewSetting';
+import { BorderAll, BorderTop } from '@mui/icons-material';
 import { Box, useTheme } from '@mui/material';
 import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 import { FC, useCallback, useEffect, useState } from 'react';
@@ -76,16 +77,17 @@ const VisTeamList: FC<IVisEntityListProps> = (): JSX.Element => {
 
   const dataGridStyles = {
     border: 0,
+    '& .MuiDataGrid-filler': { '& .css-tgsonj': { borderTopWidth: '0px' } },
     '& .MuiDataGrid-columnHeader': {
       maxHeight: '50px !important',
       minHeight: '50px !important',
       height: '50px !important',
-      bgcolor: `${theme.palette.mode === 'dark' ? theme.palette.grey[900] : 'none'}`,
+      bgcolor: theme.palette.mode === 'dark' ? theme.palette.grey[900] : 'none',
     },
     '& .MuiDataGrid-scrollbarFiller': {
-      bgcolor: `${theme.palette.mode === 'dark' ? theme.palette.grey[900] : 'none'}`,
+      bgcolor: theme.palette.mode === 'dark' ? theme.palette.grey[900] : 'none',
       '&:hover': {
-        bgcolor: `${theme.palette.mode === 'dark' ? theme.palette.grey[700] : theme.palette.grey[200]}`,
+        bgcolor: theme.palette.grey[theme.palette.mode === 'dark' ? 700 : 200],
       },
     },
     '& .MuiDataGrid-row': {
@@ -97,7 +99,7 @@ const VisTeamList: FC<IVisEntityListProps> = (): JSX.Element => {
       '&.Mui-selected': {
         backgroundColor: `${theme.palette.mode === 'dark' ? '#2a2645' : '#e1deef'}`,
         '&:hover': {
-          bgcolor: `${theme.palette.mode === 'dark' ? theme.palette.grey[700] : theme.palette.grey[200]}`,
+          bgcolor: theme.palette.grey[theme.palette.mode === 'dark' ? 700 : 200],
         },
       },
       '&:hover': {
@@ -120,7 +122,7 @@ const VisTeamList: FC<IVisEntityListProps> = (): JSX.Element => {
       alignItems: 'center',
     },
     '& .MuiSvgIcon-root': {
-      color: theme.palette.grey[500],
+      color: theme.palette.grey[theme.palette.mode === 'dark' ? 600 : 500],
     },
     height: '100%',
   };
@@ -135,7 +137,7 @@ const VisTeamList: FC<IVisEntityListProps> = (): JSX.Element => {
         height: '100%',
         width: '100%',
         mb: '10px',
-        pb: '15px',
+        pb: 4.5,
       }}
     >
       <LayoutBoxVis margin="0" sx={{ border: 'none' }}>

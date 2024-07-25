@@ -1,17 +1,15 @@
 'use client';
 import LayoutBoxVis from '@/components/layouts/LayoutBoxVis';
 import { FetchedPLData, PLPlotDataPoint } from '@/types/visDataTypes';
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Divider, Typography, useTheme } from '@mui/material';
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { Dispatch, FC, SetStateAction, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import VisTeamList from './VisTeamList';
 import { Panel, PanelGroup } from 'react-resizable-panels';
 import DividerResizable from '@/components/dividers/DividerResizable';
 import { MOCK_PL_DATA } from '@/constants/placeholderData';
 import useOverviewSettings from '@/stores/useOverviewSetting';
 import moment from 'moment';
-
-// USING MOCK_PL_DATA //
 
 interface IVisPLPlotProps {}
 
@@ -20,6 +18,43 @@ const VisPLPlot: FC<IVisPLPlotProps> = (): JSX.Element => {
   const [fetchedPLData, setFetchedPLData] = useState<FetchedPLData[]>();
   const { overviewSetting, setOverviewSetting } = useOverviewSettings();
   const [PLPlotData, setPLPlotData] = useState<PLPlotDataPoint[]>([]);
+
+  const chartStyles = {
+    container: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignContent: 'center',
+      height: '100%',
+      width: '100%',
+    },
+    title: {
+      ml: 2,
+    },
+    divider: {
+      mx: 2,
+      my: 1,
+      borderBottomWidth: 2,
+      borderRadius: '5px',
+      bgcolor: theme.palette.grey[theme.palette.mode === 'dark' ? 900 : 100],
+    },
+    gridStroke: theme.palette.grey[theme.palette.mode === 'dark' ? 700 : 400],
+    xAxisTick: {
+      fill: theme.palette.grey[theme.palette.mode === 'dark' ? 500 : 600],
+      fontSize: 14,
+    },
+    yAxisTick: {
+      fill: theme.palette.grey[theme.palette.mode === 'dark' ? 500 : 600],
+      fontSize: 14,
+    },
+    tooltip: {
+      backgroundColor: theme.palette.grey[theme.palette.mode === 'dark' ? 800 : 200],
+      fontSize: '15px',
+    },
+    dividerResizable: {
+      height: 'calc(100% - 38px)',
+    },
+  };
 
   const renderPlotLines = useCallback(
     (PLPlotdata: PLPlotDataPoint[], usersSelected: Record<string, boolean>): JSX.Element[] | void => {
@@ -66,7 +101,6 @@ const VisPLPlot: FC<IVisPLPlotProps> = (): JSX.Element => {
     [overviewSetting.usersSelected],
   );
 
-  // ----- Mock data is fetched here ----- //
   useEffect(() => {
     setFetchedPLData(MOCK_PL_DATA);
     if (fetchedPLData) {
@@ -97,40 +131,32 @@ const VisPLPlot: FC<IVisPLPlotProps> = (): JSX.Element => {
   }, [overviewSetting.usersSelected]);
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignContent: 'center',
-        height: '100%',
-        width: '100%',
-      }}
-    >
+    <Box sx={chartStyles.container}>
       <LayoutBoxVis margin="0">
-        <Typography sx={{ ml: 2 }}>P&L Plot</Typography>
+        <Typography sx={chartStyles.title}>P&L Plot</Typography>
+        <Divider orientation="horizontal" flexItem sx={chartStyles.divider} />
         <PanelGroup direction="horizontal">
           <Panel>
             <ResponsiveContainer>
               <VisTeamList />
             </ResponsiveContainer>
           </Panel>
-          <DividerResizable direction="vertical" sx={{ height: 'calc(100% - 25px)' }} />
+          <DividerResizable direction="vertical" sx={chartStyles.dividerResizable} />
           <Panel>
             <ResponsiveContainer>
               <LineChart
                 data={PLPlotData}
                 margin={{
-                  top: 10,
+                  top: 20,
                   right: 20,
-                  left: 5,
-                  bottom: 15,
+                  left: 0,
+                  bottom: 35,
                 }}
               >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="dateTimeStamp" />
-                <YAxis />
-                <Tooltip contentStyle={{ backgroundColor: theme.palette.grey[800], fontSize: '15px' }} />
+                <CartesianGrid strokeDasharray="3 3" stroke={chartStyles.gridStroke} />
+                <XAxis dataKey="dateTimeStamp" tick={chartStyles.xAxisTick} />
+                <YAxis tick={chartStyles.yAxisTick} />
+                <Tooltip contentStyle={chartStyles.tooltip} />
                 {renderPlotLines(PLPlotData, overviewSetting.usersSelected || [])}
               </LineChart>
             </ResponsiveContainer>
