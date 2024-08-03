@@ -1,6 +1,6 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useTheme } from '@mui/material';
 import { FC } from 'react';
-import { TableHeaderFormat, TableUserColors } from '@/types/TableVisTypes';
+import { TableHeaderFormat } from '@/types/TableVisTypes';
 import useOverviewSettings from '@/stores/useOverviewSetting';
 import moment from 'moment';
 

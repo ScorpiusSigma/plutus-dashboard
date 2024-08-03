@@ -1,4 +1,4 @@
-import { FetchedInstrument, FetchedLeaderboard, FetchedPLData, FetchedTrades, UserDataRaw } from '@/types/visDataTypes';
+import { FetchedInstrument, FetchedLeaderboard, FetchedPLData, FetchedTrades } from '@/types/visDataTypes';
 
 // GET /user
 export const MOCK_USERS: any = [
@@ -144,6 +144,7 @@ export const MOCK_INSTRUMENTS_DATA: FetchedInstrument = [
   },
 ];
 
+// GET /trades
 export const MOCK_TRADES_DATA: FetchedTrades = [
   {
     userid: 3,

@@ -1,6 +1,6 @@
 'use client';
 import { Divider, DividerProps, SxProps, Theme, useTheme } from '@mui/material';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { PanelResizeHandle } from 'react-resizable-panels';
 
 interface IDividerResizableProps extends DividerProps {

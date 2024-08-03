@@ -1,5 +1,5 @@
 'use client';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import HeaderBar from '@/components/headerBar/HeaderBar';
 import LayoutPaper from '@/components/layouts/LayoutPaper';
 import { Box } from '@mui/material';

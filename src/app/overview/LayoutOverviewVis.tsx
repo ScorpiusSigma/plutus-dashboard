@@ -11,9 +11,7 @@ import { MOCK_USERS } from '@/constants/placeholderData';
 import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10, schemeSet2 } from 'd3-scale-chromatic';
 import { FetchedUserData } from '@/types/visDataTypes';
-import { TableUserColors } from '@/types/TableVisTypes';
 import useOverviewSettings from '@/stores/useOverviewSetting';
-import { IOverviewSetting } from '@/types/useOverviewSettingTypes';
 
 // USING MOCK_USERS
 

@@ -1,6 +1,6 @@
 import { useTheme } from '@emotion/react';
 import { Paper } from '@mui/material';
-import { FC, ReactNode, useEffect } from 'react';
+import { FC, ReactNode } from 'react';
 
 interface ILayoutPaperProps {
   children: ReactNode;
