@@ -21,6 +21,7 @@ const OverviewContentLayout: FC = (): JSX.Element => {
   const [users, setUsers] = useState<FetchedUserData>(MOCK_USERS);
   const colorScale = scaleOrdinal(schemeSet2.concat(schemeCategory10));
 
+  // INITIAL LOAD / FETCH
   useEffect(() => {
     const loadedUserDict = MOCK_USERS.reduce((acc: any, user: { username: string; userid: number }) => {
       acc[user.userid] = {

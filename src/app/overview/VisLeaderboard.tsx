@@ -2,10 +2,9 @@ import LayoutBoxVis from '@/components/layouts/LayoutBoxVis';
 import TableVis from '@/components/table/TableVis';
 import { MOCK_LEADERBOARD_DATA } from '@/constants/placeholderData';
 import useOverviewSettings from '@/stores/useOverviewSetting';
-import { TableHeaderFormat, TableUserColors } from '@/types/TableVisTypes';
-import { FetchedLeaderboard, FetchedUserData, LeaderboardEntry, UserDataRaw } from '@/types/visDataTypes';
-import { LeaderboardOutlined } from '@mui/icons-material';
-import { Box, Typography, useTheme } from '@mui/material';
+import { TableHeaderFormat } from '@/types/TableVisTypes';
+import { FetchedLeaderboard, LeaderboardEntry } from '@/types/visDataTypes';
+import { Box, Typography } from '@mui/material';
 import { FC, useCallback, useEffect, useState } from 'react';
 
 // USING MOCK_LEADERBOARD
@@ -13,7 +12,6 @@ import { FC, useCallback, useEffect, useState } from 'react';
 interface IVisLeaderboardProps {}
 
 const VisLeaderboard: FC<IVisLeaderboardProps> = (): JSX.Element => {
-  const theme = useTheme();
   const { overviewSetting } = useOverviewSettings();
   const [leaderboardFetched, setLeaderboardFetched] = useState<FetchedLeaderboard>([]);
   const [leaderboardData, setLeaderboardData] = useState<any>([]);
@@ -24,7 +22,10 @@ const VisLeaderboard: FC<IVisLeaderboardProps> = (): JSX.Element => {
   });
 
   const updateLeaderboardData = useCallback((): void => {
-    const newLeaderboardData: any[] = leaderboardFetched.map((userEntry: LeaderboardEntry, index: number) => {
+    const leaderboardFiltered: FetchedLeaderboard = leaderboardFetched.filter(
+      (leaderboardData: LeaderboardEntry) => overviewSetting.usersSelected[leaderboardData.userid],
+    );
+    const newLeaderboardData: any[] = leaderboardFiltered.map((userEntry: LeaderboardEntry, index: number) => {
       return {
         rank: index + 1,
         username: userEntry.userid,
@@ -32,15 +33,16 @@ const VisLeaderboard: FC<IVisLeaderboardProps> = (): JSX.Element => {
       };
     });
     setLeaderboardData(newLeaderboardData);
-  }, [leaderboardFetched]);
+  }, [leaderboardFetched, overviewSetting.usersSelected]);
 
+  // INITIAL LOAD / FETCH
   useEffect(() => {
     setLeaderboardFetched(MOCK_LEADERBOARD_DATA);
   }, []);
 
   useEffect(() => {
     updateLeaderboardData();
-  }, [leaderboardFetched]);
+  }, [leaderboardFetched, overviewSetting.usersSelected]);
 
   return (
     <Box

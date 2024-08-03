@@ -1,6 +1,5 @@
 import LayoutBoxVis from '@/components/layouts/LayoutBoxVis';
 import useOverviewSettings from '@/stores/useOverviewSetting';
-import { BorderAll, BorderTop } from '@mui/icons-material';
 import { Box, useTheme } from '@mui/material';
 import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 import { FC, useCallback, useEffect, useState } from 'react';
@@ -44,7 +43,7 @@ const VisTeamList: FC<IVisEntityListProps> = (): JSX.Element => {
   const handleUserSelection = useCallback(
     (datagridSelection: GridRowSelectionModel, sortedUsers: ISortedUser[]): void => {
       const usersSelected = sortedUsers.reduce((acc, user) => {
-        acc[user.userid] = false;
+        acc[user.userid] = datagridSelection.includes(String(user.userid));
         return acc;
       }, {} as Record<number, boolean>);
 
@@ -58,6 +57,7 @@ const VisTeamList: FC<IVisEntityListProps> = (): JSX.Element => {
     [datagridSelection],
   );
 
+  // INITIAL LOAD / FETCH
   useEffect(() => {
     const initUserDict = overviewSetting.userDict;
     const initSortedUsers: ISortedUser[] = Object.keys(initUserDict).map((userid: string) => ({

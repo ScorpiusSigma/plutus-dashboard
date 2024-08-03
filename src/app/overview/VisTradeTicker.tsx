@@ -35,7 +35,6 @@ const VisTradeTicker: FC = (): JSX.Element => {
 
   useEffect(() => {
     setTradesFetched(transformFetchedTrades(MOCK_TRADES_DATA));
-    console.log(transformFetchedTrades(MOCK_TRADES_DATA));
   }, []);
 
   return (

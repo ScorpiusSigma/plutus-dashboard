@@ -10,10 +10,17 @@ interface IInputSelectDropdownProps {
   width?: string;
   options: (string | number)[];
   label: string;
+  setValue: React.Dispatch<React.SetStateAction<number>> | React.Dispatch<React.SetStateAction<string>>;
   valuePrefix?: string;
 }
 
-const InputSelectDropdown: FC<IInputSelectDropdownProps> = ({ width, options, label, valuePrefix }): JSX.Element => {
+const InputSelectDropdown: FC<IInputSelectDropdownProps> = ({
+  width,
+  options,
+  label,
+  setValue,
+  valuePrefix,
+}): JSX.Element => {
   const theme = useTheme();
   const [selectedItem, setSelectedItem] = useState<string | number>('');
 
@@ -25,6 +32,7 @@ const InputSelectDropdown: FC<IInputSelectDropdownProps> = ({ width, options, la
 
   const handleChange = (event: SelectChangeEvent<string | number>): void => {
     setSelectedItem(event.target.value);
+    setValue(event.target.value as any);
   };
 
   const styles = {
